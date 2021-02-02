@@ -1,14 +1,15 @@
 #include "StringCalculator.hpp"
+#include <regex>
 
 std::list<std::string> splitString(std::string_view inputString, std::string_view delimiter) {
-    size_t pos = 0;
-    std::string token;
-    std::string data(inputString);
+    std::string strDelimiter(delimiter);
+    std::string strInputString(inputString);
+    std::regex sep(strDelimiter);
+    std::sregex_token_iterator tokens(strInputString.cbegin(), strInputString.cend(), sep, -1);
+    std::sregex_token_iterator end;
     std::list<std::string> result;
-    while ((pos = data.find(delimiter)) != std::string::npos) {
-        token = data.substr(0, pos);
-        data.erase(0, pos + delimiter.length());
-        result.push_back(token);
+    for(; tokens != end; ++tokens) {
+        result.push_back(*tokens);
     }
 
     return result;

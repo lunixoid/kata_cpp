@@ -11,10 +11,12 @@ int main(int argc, char **argv)
 
 TEST(Test, splitString) {
     auto result = splitString("5,5", ",");
+    EXPECT_EQ(2, result.size());
     for (auto digit: result) {
         EXPECT_EQ("5", digit);
     }
     result = splitString("111,111", ",");
+    EXPECT_EQ(2, result.size());
     for (auto digit: result) {
         EXPECT_EQ("111", digit);
     }
