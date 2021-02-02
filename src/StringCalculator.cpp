@@ -16,6 +16,8 @@ std::list<std::string> splitString(std::string_view inputString, std::string_vie
 }
 
 int add(std::string_view calcString) {
+    if (calcString.length() == 0)
+        return 0;
     auto digits = splitString(calcString, ",");
     std::list<int> numbers;
     for (auto digit: digits) {

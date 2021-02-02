@@ -26,3 +26,12 @@ TEST(Test, twoNumbersAdd) {
     EXPECT_EQ(10, add("5,5"));
     EXPECT_EQ(4721, add("3490,1231"));
 }
+
+TEST(Test, empty) {
+    EXPECT_EQ(0, add(""));
+}
+
+TEST(Test, singleNumber) {
+    EXPECT_EQ(10, add("10"));
+    EXPECT_EQ(4721, add("4721"));
+}
