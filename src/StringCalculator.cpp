@@ -15,6 +15,11 @@ std::list<std::string> splitString(std::string_view inputString, std::string_vie
     return result;
 }
 
-int Add(std::string_view calcString) {
-    return 10;
+int add(std::string_view calcString) {
+    auto digits = splitString(calcString, ",");
+    std::list<int> numbers;
+    for (auto digit: digits) {
+        numbers.push_back(std::stoi(digit));
+    }
+    return [=](){ int summ = 0; for (auto n: numbers) summ += n; return summ; }();
 }

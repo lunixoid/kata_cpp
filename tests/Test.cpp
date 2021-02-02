@@ -23,5 +23,6 @@ TEST(Test, splitString) {
 }
 
 TEST(Test, twoNumbersAdd) {
-    EXPECT_EQ(10, Add("5,5"));
+    EXPECT_EQ(10, add("5,5"));
+    EXPECT_EQ(4721, add("3490,1231"));
 }
