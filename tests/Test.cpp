@@ -35,3 +35,9 @@ TEST(Test, singleNumber) {
     EXPECT_EQ(10, add("10"));
     EXPECT_EQ(4721, add("4721"));
 }
+
+TEST(Test, unknownAmoutOfNumbers) {
+    EXPECT_EQ(3, add("1,1,1"));
+    EXPECT_EQ(8, add("1,1,1,1,1,1,1,1"));
+    EXPECT_EQ(1990, add("1000,900,80,10"));
+}
