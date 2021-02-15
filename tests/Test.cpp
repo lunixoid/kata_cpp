@@ -22,10 +22,12 @@ TEST(Test, splitString) {
         EXPECT_EQ("111", digit);
     }
 
-    result = splitString("77\n77,77\n77");
-    EXPECT_EQ(4, result.size());
-    for (auto digit: result) {
-        EXPECT_EQ("77", digit);
+    for (auto line: splitString("77,77\n77,77\n77,77", "\n")) {
+        result = splitString(line);
+        EXPECT_EQ(2, result.size());
+        for (auto digit: result) {
+            EXPECT_EQ("77", digit);
+        }
     }
 }
 
@@ -53,4 +55,10 @@ TEST(Test, newLineDelimiter) {
     EXPECT_EQ(6, add("1\n2,3"));
     EXPECT_EQ(111, add("100\n10\n1"));
     EXPECT_EQ(781, add("300,1,200\n100,100,40\n40"));
+}
+
+TEST(Test, customDelimiter) {
+    EXPECT_EQ(3, add("//;\n1;2"));
+    EXPECT_EQ(8, add("//|\n1|2"));
+    EXPECT_EQ(999, add("//y\n900y90\n9"));
 }
