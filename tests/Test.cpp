@@ -59,6 +59,5 @@ TEST(Test, newLineDelimiter) {
 
 TEST(Test, customDelimiter) {
     EXPECT_EQ(3, add("//;\n1;2"));
-    EXPECT_EQ(8, add("//|\n1|2"));
     EXPECT_EQ(999, add("//y\n900y90\n9"));
 }
