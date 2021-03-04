@@ -1,7 +1,10 @@
 #include "StringCalculator.hpp"
+#include <algorithm>
 
-std::list<std::string> splitString(std::string_view inputString, const std::string delimiter) {
-    std::regex reDelimiter(delimiter);
+std::list<std::string> splitString(std::string_view inputString, const char delimiter) {
+    std::string stdDelimiter;
+    stdDelimiter.push_back(delimiter);
+    std::regex reDelimiter(stdDelimiter);
     std::string strInputString(inputString);
     std::sregex_token_iterator tokens(strInputString.cbegin(), strInputString.cend(), reDelimiter, -1);
     std::sregex_token_iterator end;
@@ -16,8 +19,8 @@ int add(std::string_view calcString) {
     if (calcString.length() == 0)
         return 0;
 
-    auto lines = splitString(calcString, "\n");
-    std::string delimiter(",");
+    auto lines = splitString(calcString, '\n');
+    char customDelimiter = 0;
     if (calcString.rfind("//", 0) == 0) {
         auto directive_line = lines.front();
         lines.pop_front();
@@ -25,12 +28,16 @@ int add(std::string_view calcString) {
         if (directive_line.size() < 3) {
             throw("Incorrect directive line size");
         }
-        delimiter = directive_line[2];
+        customDelimiter = directive_line[2];
     }
 
+    const char defaultDelimiter = ',';
     std::list<int> numbers;
     for (auto line: lines) {
-        auto digits = splitString(line, delimiter);
+        if (customDelimiter) {
+            std::replace(line.begin(), line.end(), customDelimiter, defaultDelimiter);
+        }
+        auto digits = splitString(line, defaultDelimiter);
         for (auto digit: digits) {
             numbers.push_back(std::stoi(digit));
         }
