@@ -67,3 +67,29 @@ TEST(Test, regexCharacters) {
     EXPECT_EQ(3, add("//:\n1:2"));
     EXPECT_EQ(3, add("//-\n1-2"));
 }
+
+TEST(Test, ignoreNegativeValues) {
+    try {
+        add("-1,100");
+        FAIL() << "add(\"-1,100\") should throw an error\n";
+    } catch (const std::invalid_argument& exception) {
+        std::cout << exception.what() << std::endl;
+        SUCCEED();
+    }
+
+    try {
+        add("-1,-99,-100");
+        FAIL() << "add(\"-1,-99,-100\") should throw an error\n";
+    } catch (const std::invalid_argument& exception) {
+        std::cout << exception.what() << std::endl;
+        SUCCEED();
+    }
+
+    try {
+        add("1,-99");
+        FAIL() << "add(\"1,-99\") should throw an error\n";
+    } catch (const std::invalid_argument& exception) {
+        std::cout << exception.what() << std::endl;
+        SUCCEED();
+    }
+}

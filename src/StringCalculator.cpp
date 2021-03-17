@@ -32,15 +32,17 @@ int add(std::string_view calcString) {
     }
 
     const char defaultDelimiter = ',';
-    std::list<int> numbers;
+    std::list<int> digits;
     for (auto line: lines) {
         if (customDelimiter) {
             std::replace(line.begin(), line.end(), customDelimiter, defaultDelimiter);
         }
-        auto digits = splitString(line, defaultDelimiter);
-        for (auto digit: digits) {
-            numbers.push_back(std::stoi(digit));
+        auto strDigits = splitString(line, defaultDelimiter);
+        for (auto digit: strDigits) {
+            digits.push_back(std::stoi(digit));
         }
     }
-    return [=](){ int summ = 0; for (auto n: numbers) summ += n; return summ; }();
+
+    checkDigits(digits);
+    return [=](){ int summ = 0; for (auto n: digits) summ += n; return summ; }();
 }
